@@ -20,7 +20,6 @@ public class InventoryUI : MonoBehaviour
     private void OnDisable()
     {
         EventHandler.UpdateUIEvent -= OnUpdateUIEvent;
-
     }
 
 

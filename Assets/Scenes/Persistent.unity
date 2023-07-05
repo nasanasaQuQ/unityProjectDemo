@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d9e1ae59fbda2346b18758b3616f9d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startScene: h1
+  startScene: h2
   fadeCanvansGroup: {fileID: 220620534}
   fadeDuration: 1
 --- !u!4 &544189893
@@ -1273,8 +1273,9 @@ GameObject:
   - component: {fileID: 1622416118}
   - component: {fileID: 1622416117}
   - component: {fileID: 1622416116}
+  - component: {fileID: 1622416119}
   m_Layer: 5
-  m_Name: 'Right Button '
+  m_Name: Right Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1382,6 +1383,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1622416114}
   m_CullTransparentMesh: 1
+--- !u!114 &1622416119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622416114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1d48d1ec87a2d4488ae0df4272ed3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 4e0f0df845caf754f8219537ddeaafcd, type: 2}
+  buttonName: {fileID: 1622416116}
+  slotUI: {fileID: 742842740}
 --- !u!1 &1744057290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,6 +1486,7 @@ GameObject:
   - component: {fileID: 1848176805}
   - component: {fileID: 1848176804}
   - component: {fileID: 1848176803}
+  - component: {fileID: 1848176806}
   m_Layer: 5
   m_Name: Left Button
   m_TagString: Untagged
@@ -1579,3 +1596,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848176801}
   m_CullTransparentMesh: 1
+--- !u!114 &1848176806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1848176801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1d48d1ec87a2d4488ae0df4272ed3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemData: {fileID: 11400000, guid: 4e0f0df845caf754f8219537ddeaafcd, type: 2}
+  buttonName: {fileID: 1848176803}
+  slotUI: {fileID: 742842740}

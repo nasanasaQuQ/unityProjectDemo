@@ -19,6 +19,13 @@ public class SlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         itemImage.SetNativeSize();
     }
 
+    public void ChangeItemSprite(ItemDetails itemDetails)
+    {
+        currentItem = itemDetails;
+        itemImage.sprite = itemDetails.itemSprite;
+        itemImage.SetNativeSize();
+    }
+
     public void SetEmpty()
     {
         gameObject.SetActive(false);

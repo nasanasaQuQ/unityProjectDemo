@@ -15,7 +15,7 @@ public static class EventHandler
 
     public static event Action<ItemName> ItemUsedEvent;
 
-    public static event Action<ItemName> AddItemEvent;
+    public static event Action<ItemDetails> AddItemEvent;
     
     public static void CallUpdateUIEvent(ItemDetails itemDetails, int index)
     {
@@ -47,9 +47,9 @@ public static class EventHandler
     /// 添加物品触发
     /// </summary>
     /// <param name="itemName"></param>
-    public static void CallAddItemEvent(ItemName itemName)
+    public static void CallAddItemEvent(ItemDetails itemDetails)
     {
-        AddItemEvent?.Invoke(itemName);
+        AddItemEvent?.Invoke(itemDetails);
     }
 
 }

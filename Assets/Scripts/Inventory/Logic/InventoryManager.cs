@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
-
+    
     public ItemDataList_SO itemData;
     
-    [SerializeField] private List<ItemName> itemList = new List<ItemName>();
-
+    [SerializeField] public List<ItemName> itemList = new List<ItemName>();
+    
     private void OnEnable()
     {
         EventHandler.ItemUsedEvent += OnItemUsedEvent;
@@ -30,12 +30,24 @@ public class InventoryManager : Singleton<InventoryManager>
     }
 
     public void AddItem(ItemName itemName)
-    {
-        if (!itemList.Contains(itemName))
+    {   
+        // 假设只有一个物体
+        if (itemList.Count == 0)
         {
-            itemList.Add(itemName);
-            EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemName), itemList.Count - 1);
+            if (!itemList.Contains(itemName))
+            {
+                itemList.Add(itemName);
+                EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemName), itemList.Count - 1);
+            }
         }
+        // 多个物体
+        else
+        {   
+            Debug.Log("新添加了一个物品");
+            itemList.Add(itemName);
+            EventHandler.CallAddItemEvent(itemData.GetItemDetails(itemName));
+        }
+
     }
 
     private int GetItemIndex(ItemName itemName)
