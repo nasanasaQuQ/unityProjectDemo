@@ -36,8 +36,38 @@ public class InventoryUI : MonoBehaviour
         {
             currentIndex = index;
             slotUI.SetItem(itemDetails);
+
+            if (index > 0)
+                leftButton.interactable = true;
+            if (index == -1)
+            {
+                leftButton.interactable = false;
+                rightButton.interactable = false;
+            }
+                
+        }
+    }
+
+    // 更新版切换物品按钮显示
+    public void SwitchItem(int amount)
+    {
+        var index = currentIndex + amount;
+        if (index < currentIndex)
+        {
+            leftButton.interactable = false;
+            rightButton.interactable = true;
+        }
+        else if (index > currentIndex)
+        {
+            leftButton.interactable = true;
+            rightButton.interactable = false;
+        }
+        else
+        {
+            leftButton.interactable = true;
+            rightButton.interactable = true;
         }
         
-        
+        EventHandler.CallChangeItemEvent(index);
     }
 }

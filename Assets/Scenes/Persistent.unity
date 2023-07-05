@@ -1344,7 +1344,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1622416117}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 271963372}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: SwitchItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1622416117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1395,9 +1407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1d48d1ec87a2d4488ae0df4272ed3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 4e0f0df845caf754f8219537ddeaafcd, type: 2}
-  buttonName: {fileID: 1622416116}
-  slotUI: {fileID: 742842740}
 --- !u!1 &1744057290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,7 +1566,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1848176804}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 271963372}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: SwitchItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1848176804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1608,6 +1629,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1d48d1ec87a2d4488ae0df4272ed3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 4e0f0df845caf754f8219537ddeaafcd, type: 2}
-  buttonName: {fileID: 1848176803}
-  slotUI: {fileID: 742842740}

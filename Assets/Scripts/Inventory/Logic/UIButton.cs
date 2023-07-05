@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UIButton : MonoBehaviour
 {
     
-    public ItemDataList_SO itemData;
+    /*public ItemDataList_SO itemData;
 
     public Button buttonName;
     
@@ -19,20 +19,20 @@ public class UIButton : MonoBehaviour
 
     private int currentSizeMax;
 
-    private int currentSizeMin = 0;
-    private void Start()
+    private int currentSizeMin = 0;*/
+    /*private void Start()
     {
         buttonName = GetComponent<Button>();
         
         buttonName.onClick.AddListener(OnButtonClick);
-    }
+    }*/
 
     
 
     /// <summary>
     /// 切换物品(如果有)
     /// </summary>
-    public void OnButtonClick()
+    /*public void OnButtonClick()
     {
         var itemlist = GetItemList();
         currentSizeMax = itemlist.Count;
@@ -50,7 +50,6 @@ public class UIButton : MonoBehaviour
                 {
                     if (GlobalVar.NOWITEMIEDEX >= itemlist.Count)
                     {
-                        Debug.Log("too mach");
                     }
                     else
                     {
@@ -68,7 +67,6 @@ public class UIButton : MonoBehaviour
                 {   
                     if (currentIndex <= itemlist.Count)
                     {
-                        Debug.Log("too slow");
                     }
                     else
                     {
@@ -80,7 +78,7 @@ public class UIButton : MonoBehaviour
                     }
                     break;
                     /*slotUI.ChangeItemSprite(itemData.GetItemDetails(itemlist[currentIndex - 1]));
-                    break;*/
+                    break;#1#
                 }
 
             }
@@ -95,6 +93,6 @@ public class UIButton : MonoBehaviour
     private List<ItemName> GetItemList()
     {
         return InventoryManager.Instance.itemList;
-    }
+    }*/
     
 }

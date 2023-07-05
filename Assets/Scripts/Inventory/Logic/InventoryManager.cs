@@ -13,13 +13,41 @@ public class InventoryManager : Singleton<InventoryManager>
     private void OnEnable()
     {
         EventHandler.ItemUsedEvent += OnItemUsedEvent;
+        EventHandler.ChangeItemEvent += OnChangeItemEvent;
+        EventHandler.AfterSceneUnloadEvent += OnAfterSceneUnloadEvent;
+
+
+    }
+
+    private void OnAfterSceneUnloadEvent()
+    {
+        if (itemList.Count == 0)
+            EventHandler.CallUpdateUIEvent(null, -1);
+        else
+            for (var i = 0; i < itemList.Count; i++)
+            {
+                EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]),i);
+            }
     }
 
     private void OnDisable()
     {
         EventHandler.ItemUsedEvent -= OnItemUsedEvent;
+        EventHandler.ChangeItemEvent -= OnChangeItemEvent;
+        EventHandler.AfterSceneUnloadEvent -= OnAfterSceneUnloadEvent;
+
     }
 
+    // 切换物品ui
+    private void OnChangeItemEvent(int index)
+    {
+        if (index >= 0 && index < itemList.Count)
+        {
+            ItemDetails itemDetails = itemData.GetItemDetails(itemList[index]);
+            EventHandler.CallUpdateUIEvent(itemDetails, index);
+        }
+    }
+    
     private void OnItemUsedEvent(ItemName itemName)
     {
         var index = GetItemIndex(itemName);
@@ -31,8 +59,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     public void AddItem(ItemName itemName)
     {   
-        // 假设只有一个物体
-        if (itemList.Count == 0)
+
         {
             if (!itemList.Contains(itemName))
             {
@@ -40,13 +67,7 @@ public class InventoryManager : Singleton<InventoryManager>
                 EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemName), itemList.Count - 1);
             }
         }
-        // 多个物体
-        else
-        {   
-            Debug.Log("新添加了一个物品");
-            itemList.Add(itemName);
-            EventHandler.CallAddItemEvent(itemData.GetItemDetails(itemName));
-        }
+        
 
     }
 
