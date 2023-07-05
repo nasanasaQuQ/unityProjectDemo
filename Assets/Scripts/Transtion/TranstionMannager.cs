@@ -14,14 +14,30 @@ public class TranstionMannager : Singleton<TranstionMannager>
     public float fadeDuration;
     private bool isFade;
 
+    private bool _canTransition;
     private void Start()
     {
         StartCoroutine(TransitionToSence(string.Empty, startScene));
     }
 
+    private void OnEnable()
+    {
+        EventHandler.GameStateChangeEvent += OnGameStateChangeEvent;
+    }
+
+    private void OnGameStateChangeEvent(GameState gameState)
+    {
+        _canTransition = gameState == GameState.GamePlay;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.GameStateChangeEvent += OnGameStateChangeEvent;
+    }
+
     public void Transition(string from, string togo)
     {
-        if (!isFade)
+        if (!isFade && _canTransition)
             StartCoroutine(TransitionToSence(from, togo));
         
     }
