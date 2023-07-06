@@ -47,6 +47,7 @@ public class GameController : Singleton<GameController>
         {
             holder.GetComponent<Collider2D>().enabled = false;
         }
+        EventHandler.CallGamePassEvent(gameData.gameName);
         onFinish?.Invoke();
     }
 
