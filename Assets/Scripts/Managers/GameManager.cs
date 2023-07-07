@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour, ISaveable
 {
 
     private Dictionary<string, bool> _miniGameDictionary = new Dictionary<string, bool>();
-
+    private int _gameWeek;
+    private GameController _currentGame;
     private void OnEnable()
     {
         EventHandler.AfterSceneUnloadEvent += OnAfterSceneUnloadEvent;
         EventHandler.GamePassEvent += OnGamePassEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
 
     }
 
@@ -20,7 +22,24 @@ public class GameManager : MonoBehaviour
     {
         EventHandler.AfterSceneUnloadEvent -= OnAfterSceneUnloadEvent;
         EventHandler.GamePassEvent -= OnGamePassEvent;
-        
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+
+    }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        SceneManager.LoadScene("menu",LoadSceneMode.Additive);
+        EventHandler.CallGameStateChangeEvent(GameState.GamePlay);
+
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
+    }
+
+    private void OnStartNewGameEvent(int gameWeek)
+    {
+        this._gameWeek = gameWeek;
+        _miniGameDictionary.Clear();
     }
 
     private void OnGamePassEvent(string gameName)
@@ -39,15 +58,24 @@ public class GameManager : MonoBehaviour
                 miniGame.UpdateMiniGameState();
             }
         }
+
+        _currentGame = FindObjectOfType<GameController>();
+        _currentGame?.SetGameWeekData(_gameWeek);
+    }
+    
+
+
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData saveData = new GameSaveData();
+        saveData.GameWeek = this._gameWeek;
+        saveData.miniGameStateDict = this._miniGameDictionary;
+        return saveData;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void RestoreGameData(GameSaveData gameSaveData)
     {
-        SceneManager.LoadScene("menu",LoadSceneMode.Additive);
-        EventHandler.CallGameStateChangeEvent(GameState.GamePlay);
+        this._gameWeek = gameSaveData.GameWeek;
+        this._miniGameDictionary = gameSaveData.miniGameStateDict;
     }
-    
-    
-    
 }

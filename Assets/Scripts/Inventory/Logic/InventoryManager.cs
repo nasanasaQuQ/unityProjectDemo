@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>, ISaveable
 {
     
     public ItemDataList_SO itemData;
@@ -15,10 +15,26 @@ public class InventoryManager : Singleton<InventoryManager>
         EventHandler.ItemUsedEvent += OnItemUsedEvent;
         EventHandler.ChangeItemEvent += OnChangeItemEvent;
         EventHandler.AfterSceneUnloadEvent += OnAfterSceneUnloadEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
 
 
     }
+    
 
+    private void OnDisable()
+    {
+        EventHandler.ItemUsedEvent -= OnItemUsedEvent;
+        EventHandler.ChangeItemEvent -= OnChangeItemEvent;
+        EventHandler.AfterSceneUnloadEvent -= OnAfterSceneUnloadEvent;
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+
+    }
+
+    private void OnStartNewGameEvent(int obj)
+    {
+        itemList.Clear();
+    }
+    
     private void OnAfterSceneUnloadEvent()
     {
         if (itemList.Count == 0)
@@ -28,14 +44,6 @@ public class InventoryManager : Singleton<InventoryManager>
             {
                 EventHandler.CallUpdateUIEvent(itemData.GetItemDetails(itemList[i]),i);
             }
-    }
-
-    private void OnDisable()
-    {
-        EventHandler.ItemUsedEvent -= OnItemUsedEvent;
-        EventHandler.ChangeItemEvent -= OnChangeItemEvent;
-        EventHandler.AfterSceneUnloadEvent -= OnAfterSceneUnloadEvent;
-
     }
 
     // 切换物品ui
@@ -55,6 +63,12 @@ public class InventoryManager : Singleton<InventoryManager>
         
         if (itemList.Count == 0)
             EventHandler.CallUpdateUIEvent(null, -1);
+    }
+
+    private void Start()
+    {
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
     }
 
     public void AddItem(ItemName itemName)
@@ -81,5 +95,16 @@ public class InventoryManager : Singleton<InventoryManager>
 
         return -1;
     }
-    
+
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData gameSaveData = new GameSaveData();
+        gameSaveData.itemList = itemList;
+        return gameSaveData;
+    }
+
+    public void RestoreGameData(GameSaveData gameSaveData)
+    {
+        itemList = gameSaveData.itemList;
+    }
 }

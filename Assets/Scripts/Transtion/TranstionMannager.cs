@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TranstionMannager : Singleton<TranstionMannager>
+public class TranstionMannager : Singleton<TranstionMannager>, ISaveable
 {
 
     [SceneName] public string startScene;
@@ -15,14 +15,18 @@ public class TranstionMannager : Singleton<TranstionMannager>
     private bool isFade;
 
     private bool _canTransition;
-    /*private void Start()
+    private void Start()
     {
-        StartCoroutine(TransitionToSence(string.Empty, startScene));
-    }*/
+        //StartCoroutine(TransitionToSence(string.Empty, startScene));
+        ISaveable saveable = this;
+        saveable.SaveableRegister();
+        
+    }
 
     private void OnEnable()
     {
         EventHandler.GameStateChangeEvent += OnGameStateChangeEvent;
+        EventHandler.StartNewGameEvent += OnStartNewGameEvent;
     }
 
     private void OnGameStateChangeEvent(GameState gameState)
@@ -33,6 +37,13 @@ public class TranstionMannager : Singleton<TranstionMannager>
     private void OnDisable()
     {
         EventHandler.GameStateChangeEvent += OnGameStateChangeEvent;
+        EventHandler.StartNewGameEvent -= OnStartNewGameEvent;
+
+    }
+
+    private void OnStartNewGameEvent(int obj)
+    {
+        StartCoroutine(TransitionToSence("menu", startScene));
     }
 
     public void Transition(string from, string togo)
@@ -86,4 +97,15 @@ public class TranstionMannager : Singleton<TranstionMannager>
         isFade = false;
     }
 
+    public GameSaveData GenerateSaveData()
+    {
+        GameSaveData gameSaveData = new GameSaveData();
+        gameSaveData.CurrentScene = SceneManager.GetActiveScene().name;
+        return gameSaveData;
+    }
+
+    public void RestoreGameData(GameSaveData gameSaveData)
+    {
+        Transition("menu", gameSaveData.CurrentScene);
+    }
 }
