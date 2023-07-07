@@ -15,10 +15,10 @@ public class TranstionMannager : Singleton<TranstionMannager>
     private bool isFade;
 
     private bool _canTransition;
-    private void Start()
+    /*private void Start()
     {
         StartCoroutine(TransitionToSence(string.Empty, startScene));
-    }
+    }*/
 
     private void OnEnable()
     {
